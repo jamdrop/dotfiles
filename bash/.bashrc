@@ -35,10 +35,7 @@ if [[ -n "$PS1" ]]; then
   fi
 
   # enable cross env ssh-agent
-  if [[ -x $(which dbus-launch) && -x $(which gnome-keyring-daemon) && -z ${DBUS_SESSIONBUS_ADDRESS} ]]; then
-    eval $(dbus-launch --sh-syntax --exit-with-session)
-    export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gnupg)
-  elif [[ -x $HOME/bin/xenv-ssh-agent.sh ]]; then
+  if [[ -z ${SSH_AUTH_SOCK} && -x $HOME/bin/xenv-ssh-agent.sh ]]; then
     . $HOME/bin/xenv-ssh-agent.sh
   fi
 
