@@ -10,28 +10,24 @@ if [[ -n "$PS1" ]]; then
   export PAGER=less
   export EDITOR=vim
   export NAME="Jakob Mayring"
-  export EMAIL="jakob.mayring@counity.at"
+  export EMAIL="jam@jammm.eu.org"
 
   PS1='\u@\h# '
+  
+  HISTCONTROL=ignoreboth
+  HISTSIZE=10000
+  HISTFILESIZE=20000
+  HISTTIMEFORMAT='%c '
+  shopt -s histappend
+  shopt -s checkwinsize
 
   eval "`dircolors -b`"
   alias ls='ls --color=auto -F'
 
-  alias iccenv.11.1='source /opt/intel/Compiler/11.1/073/bin/iccvars.sh intel64'
-  alias iccvars='source ~/bin/iccvars.env'
-  alias tomatoenv='source /opt/brcm/brcm.sh'
-  alias xrandr-home="xrandr --output DVI-0 --mode 1680x1050 --right-of LVDS"
-
+  # add own scripts to path
   if [[ -d "${HOME}/bin" ]]; then
     export PATH="${PATH}:${HOME}/bin"
   fi
-
-  HISTCONTROL=ignoreboth
-  HISTSIZE=5000
-  HISTFILESIZE=5000
-  HISTTIMEFORMAT='%c '
-
-  shopt -s histappend
 
   # enable bash completion in interactive shells
   if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
@@ -39,8 +35,11 @@ if [[ -n "$PS1" ]]; then
   fi
 
   # enable cross env ssh-agent
-  if [[ -x ~/bin/xenv-ssh-agent.sh ]]; then
-    . ~/bin/xenv-ssh-agent.sh
+  if [[ -x $(which dbus-launch) && -x $(which gnome-keyring-daemon) && -z ${DBUS_SESSIONBUS_ADDRESS} ]]; then
+    eval $(dbus-launch --sh-syntax --exit-with-session)
+    export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gnupg)
+  elif [[ -x $HOME/bin/xenv-ssh-agent.sh ]]; then
+    . $HOME/bin/xenv-ssh-agent.sh
   fi
 
 fi # end interactive
