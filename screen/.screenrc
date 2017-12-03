@@ -1,0 +1,46 @@
+# Automatically detach on hangup.
+autodetach on                         # default: on
+
+# Don't display the copyright page
+startup_message off                   # default: on
+
+# Change default scrollback value for new windows
+defscrollback 1000                    # default: 100
+
+# Pretty status bar at the bottom.
+#caption always "%{=r kd}%-Lw%{= bd}%50>%n%f* %t%{-}%+Lw%<%{- Wk}"
+#caption always "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %D-%M-%d %c "
+caption always "%{.kW}%-w%{G}%n %t%{wW}%{.kW}%+w%=%{..g} %H %D-%M-%d %c"
+
+# Time a message is displayed if screen is not disturbed by
+# other activity. The dafault is 5 seconds:
+msgwait 15
+
+# Don't you want to start programs which need a DISPLAY ?
+setenv DISPLAY ':0'
+
+# Bind F11 and F12 (NOT F1 and F2) to previous and next screen window
+bindkey -k F1 prev
+bindkey -k F2 next
+      
+# An alternative hardstatus to display a bar at the bottom listing the
+# windownames and highlighting the current windowname in blue. (This is only
+# enabled if there is no hardstatus setting for your terminal)
+hardstatus ignore
+#hardstatus alwayslastline
+#hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} "
+#hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %D-%M-%d %c "
+
+# tell screen that you term can scroll
+#termcapinfo xterm* ti@:te@
+#termcapinfo rxvt* ti@:te@
+
+# bind Shift+PgUp/PgDn
+bindkey -m "^[[5;2~" stuff ^b
+bindkey -m "^[[6;2~" stuff ^f
+
+# Support alternate screens so that, for example, when you
+# quit out of vi, the display is redrawn as it was before vi
+# redrew the full screen.
+altscreen on
+defutf8 on
