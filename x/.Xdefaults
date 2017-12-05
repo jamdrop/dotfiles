@@ -7,7 +7,7 @@ Xft.antialias: 1
 Xft.rgba: rgb
 Rxvt*background: black
 Rxvt*foreground: white
-Rxvt*fading: 30
+Rxvt*fading: 20
 Rxvt*borderColor: black
 Rxvt*scrollColor: darkgrey
 Rxvt*scrollBar_right: true
