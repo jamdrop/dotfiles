@@ -4,7 +4,7 @@ usage() {
     echo "$(basename ${0}) [+....|-....]"
 }
 
-sink=$(pacmd list-sinks | awk '/* index/ { print $3}')
+sink=$(pacmd list-sinks | awk '/\* index/ { print $3}')
 if [[ -z ${sink} ]]; then
     echo "no sink for you ...."
     exit 1
