@@ -29,10 +29,6 @@ if [[ -n "$PS1" ]]; then
     export PATH="${PATH}:${HOME}/bin"
   fi
 
-  # add gcloud
-  if [[ -d "/opt/google-cloud-sdk/bin" ]]; then
-    export PATH="${PATH}:/opt/google-cloud-sdk/bin"
-  fi
 
   # enable bash completion in interactive shells
   if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
@@ -42,6 +38,16 @@ if [[ -n "$PS1" ]]; then
   # enable cross env ssh-agent
   if [[ -z ${SSH_AUTH_SOCK} && -x $HOME/bin/xenv-ssh-agent.sh ]]; then
     . $HOME/bin/xenv-ssh-agent.sh
+  fi
+  
+  # add gcloud
+  if [[ -d "/opt/google-cloud-sdk/bin" ]]; then
+    export PATH="${PATH}:/opt/google-cloud-sdk/bin"
+  fi
+
+  # bash completion for kubernetes
+  if [[ -x $(which kubectl) ]]; then
+    source <(kubectl completion bash)
   fi
 
 fi # end interactive
