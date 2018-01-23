@@ -41,3 +41,7 @@ Rxvt*color14: #54FFFF
 ! white
 Rxvt*color7:  #B2B2B2
 Rxvt*color15: #FFFFFF
+! URxvt specifics
+URxvt*iso14755: 0
+URxvt*iso14755_52: 0
+URxvt*perl-ext-common: default,font-size
