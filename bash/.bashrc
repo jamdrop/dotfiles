@@ -24,6 +24,7 @@ if [[ -n "$PS1" ]]; then
   eval "`dircolors -b`"
   alias ls='ls --color=auto -F'
 
+
   # add own scripts to path
   if [[ -d "${HOME}/bin" ]]; then
     export PATH="${PATH}:${HOME}/bin"
@@ -48,6 +49,7 @@ if [[ -n "$PS1" ]]; then
   # bash completion for kubernetes
   if [[ -x $(which kubectl) ]]; then
     source <(kubectl completion bash)
+    alias k=kubectl
   fi
 
 fi # end interactive
