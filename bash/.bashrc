@@ -29,6 +29,16 @@ if [[ -n "$PS1" ]]; then
     export PATH="${PATH}:${HOME}/bin"
   fi
 
+  # add go to path
+  GOROOT="/opt/go"
+  if [[ -d ${GOROOT} ]]; then
+    export GOROOT
+    export PATH="${PATH}:${GOROOT}/bin"
+  fi
+  GOPATH="$(go env GOPATH 2>/dev/null || '')"
+  if [[ -d ${GOPATH} ]]; then
+    export PATH="${PATH}:${GOPATH}/bin"
+  fi
 
   # enable bash completion in interactive shells
   if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
