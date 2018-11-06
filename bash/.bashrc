@@ -60,6 +60,7 @@ if [[ -n "$PS1" ]]; then
   if [[ -x $(which kubectl) ]]; then
     source <(kubectl completion bash)
     alias k=kubectl
+    kw() { watch -n 1 "kubectl $@"; }
   fi
 
 fi # end interactive
