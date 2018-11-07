@@ -31,13 +31,8 @@ if [[ -n "$PS1" ]]; then
   fi
 
   # add go to path
-  GOROOT="/opt/go"
-  if [[ -d ${GOROOT} ]]; then
-    export GOROOT
-    export PATH="${PATH}:${GOROOT}/bin"
-  fi
-  GOPATH="$(go env GOPATH 2>/dev/null || '')"
-  if [[ -d ${GOPATH} ]]; then
+  if [[ -d "${HOME}/go" ]]; then
+    export GOPATH=$HOME/go
     export PATH="${PATH}:${GOPATH}/bin"
   fi
 
