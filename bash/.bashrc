@@ -10,7 +10,6 @@ if [[ -n "$PS1" ]]; then
   export PAGER=less
   export EDITOR=vim
   export NAME="Jakob Mayring"
-  export EMAIL="jam@jammm.eu.org"
 
   PS1='\u@\h# '
   
@@ -56,6 +55,8 @@ if [[ -n "$PS1" ]]; then
     source <(kubectl completion bash)
     alias k=kubectl
     kw() { watch -n 1 "kubectl $@"; }
+    knodepods() { kubectl get pods --all-namespaces --field-selector spec.nodeName=$@; }
+    alias kpie="kubectl run jam-httpie --rm -i --tty --image alpine/httpie -- bash"
   fi
 
 fi # end interactive
