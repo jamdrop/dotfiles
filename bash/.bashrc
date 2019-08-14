@@ -56,7 +56,12 @@ if [[ -n "$PS1" ]]; then
     alias k=kubectl
     kw() { watch -n 1 "kubectl $@"; }
     knodepods() { kubectl get pods --all-namespaces --field-selector spec.nodeName=$@; }
-    alias kpie="kubectl run jam-httpie --rm -i --tty --image alpine/httpie -- bash"
+    alias kv="~/Projects/bitmovin-k8s/services/versions.sh"
+    alias kpod="kubectl run jam-debug --rm -i --tty --image=ubuntu -- bash -li"
+  fi
+
+  if [[ -x $(which minikube) ]]; then
+    source <(minikube completion bash)
   fi
 
 fi # end interactive
