@@ -10,7 +10,6 @@ if [[ -n "$PS1" ]]; then
   export PAGER=less
   export EDITOR=vim
   export NAME="Jakob Mayring"
-  export EMAIL="jam@jammm.eu.org"
 
   PS1='\u@\h# '
   
@@ -34,13 +33,8 @@ if [[ -n "$PS1" ]]; then
   fi
 
   # add go to path
-  GOROOT="/opt/go"
-  if [[ -d ${GOROOT} ]]; then
-    export GOROOT
-    export PATH="${PATH}:${GOROOT}/bin"
-  fi
-  GOPATH="$(go env GOPATH 2>/dev/null || '')"
-  if [[ -d ${GOPATH} ]]; then
+  if [[ -d "${HOME}/go" ]]; then
+    export GOPATH=$HOME/go
     export PATH="${PATH}:${GOPATH}/bin"
   fi
 
@@ -64,6 +58,13 @@ if [[ -n "$PS1" ]]; then
     source <(kubectl completion bash)
     alias k=kubectl
     kw() { watch -n 1 "kubectl $@"; }
+    knodepods() { kubectl get pods --all-namespaces --field-selector spec.nodeName=$@; }
+    alias kv="~/Projects/bitmovin-k8s/services/versions.sh"
+    alias kpod="kubectl run jam-debug --rm -i --tty --image=ubuntu -- bash -li"
+  fi
+
+  if [[ -x $(which minikube) ]]; then
+    source <(minikube completion bash)
   fi
 
 fi # end interactive
