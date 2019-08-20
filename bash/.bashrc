@@ -5,7 +5,8 @@
 # If not running interactively, don't do anything
 if [[ -n "$PS1" ]]; then
 
-  export LANG=de_AT.UTF-8
+  export LANG=en_US.UTF-8
+  export LANGUAGE=en_US
   export LC_ALL=de_AT.UTF-8
   export PAGER=less
   export EDITOR=vim
