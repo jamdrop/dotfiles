@@ -29,6 +29,9 @@ if [[ -n "$PS1" ]]; then
   if [[ -d "${HOME}/bin" ]]; then
     export PATH="${PATH}:${HOME}/bin"
   fi
+  if [[ -d "${HOME}/.local/bin" ]]; then
+    export PATH="${PATH}:${HOME}/.local/bin"
+  fi
 
   # add go to path
   if [[ -d "${HOME}/go" ]]; then
