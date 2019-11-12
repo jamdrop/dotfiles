@@ -32,10 +32,13 @@ if [[ -n "$PS1" ]]; then
   if [[ -d "${HOME}/.local/bin" ]]; then
     export PATH="${PATH}:${HOME}/.local/bin"
   fi
+  if [[ -d "/usr/local/go/bin" ]]; then
+    export PATH="${PATH}:/usr/local/go/bin"
+  fi
 
   # add go to path
-  if [[ -d "${HOME}/go" ]]; then
-    export GOPATH=$HOME/go
+  if [[ -x $(which go) ]]; then
+    source <(go env)
     export PATH="${PATH}:${GOPATH}/bin"
   fi
 
