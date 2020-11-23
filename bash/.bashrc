@@ -34,8 +34,8 @@ if [[ -n "$PS1" ]]; then
   fi
 
   # add go to path
-  if [[ -d "${HOME}/go" ]]; then
-    export GOPATH=$HOME/go
+  if [[ -x $(which go) ]]; then
+    source <(go env)
     export PATH="${PATH}:${GOPATH}/bin"
   fi
 
@@ -48,11 +48,12 @@ if [[ -n "$PS1" ]]; then
   if [[ -z ${SSH_AUTH_SOCK} && -x $HOME/bin/xenv-ssh-agent.sh ]]; then
     . $HOME/bin/xenv-ssh-agent.sh
   fi
-  
-  # add gcloud
-  if [[ -d "/opt/google-cloud-sdk/bin" ]]; then
-    export PATH="${PATH}:/opt/google-cloud-sdk/bin"
-  fi
+
+  # The next line updates PATH for the Google Cloud SDK.
+  if [ -f '/opt/google-cloud-sdk/path.bash.inc' ]; then . '/opt/google-cloud-sdk/path.bash.inc'; fi
+
+  # The next line enables shell command completion for gcloud.
+  if [ -f '/opt/google-cloud-sdk/completion.bash.inc' ]; then . '/opt/google-cloud-sdk/completion.bash.inc'; fi
 
   # bash completion for kubernetes
   if [[ -x $(which kubectl) ]]; then
