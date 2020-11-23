@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 set -eu
 
@@ -19,19 +19,28 @@ mark() {
 }
 
 rate() {
-    # TC setup:
-    #tc qdisc add dev eth0 root handle 1: htb default 1
-    #tc class add dev eth0 parent 1: classid 1:11 htb rate 10mbit
-    #tc filter add dev eth0 parent 1: handle 11 fw classid 1:11
     tc class replace dev eth0 parent 1: classid 1:11 htb rate "${1}"
 }
 
-usage() {
-    echo "$(basename "${0}") ( IP MBIT | clear )"
+setup() {
+    tc qdisc add dev eth0 root handle 1: htb default 1
+    tc class add dev eth0 parent 1: classid 1:11 htb rate 10mbit
+    tc filter add dev eth0 parent 1: handle 11 fw classid 1:11
 }
 
-if [[ $# -eq 1 && "${1}" == "clean" ]]; then
+usage() {
+    echo "$(basename "${0}") ( IP MBIT | clear | setup)"
+}
+
+if [[ $# -eq 1 ]]; then
+  if [[ "${1}" == "clear" ]]; then
     flush
+  elif [[ "${1}" == "setup" ]]; then
+    setup
+  else
+    usage
+    exit 1
+  fi
 elif [[ $# -eq 2 ]]; then
     flush
     mark "${1}"
